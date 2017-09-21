@@ -18,16 +18,20 @@ public class SimpleServer {
         DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
         
         Scanner input = new Scanner(System.in);
-        
-        while(!input.nextLine().equals("bye")){
-            dos.writeUTF(input.nextLine());
+        do{
+            String str = input.nextLine();
+            dos.writeUTF(str);
+            if(str.equalsIgnoreCase("bye"))
+                break;
             String msg = new String(dis.readUTF());
-            System.out.println(msg);            
-        }
-        
-        dis.close();
+            System.out.println("Server: " + msg);
+            
+        }while(true);
+
         dos.close();
+        dis.close();
         sock.close();
+        sS.close();
     }
     
 }
